@@ -177,7 +177,7 @@ button:active{
     transform:scale(.97) translateY(0);
 }
 
-/* ========= RADIO TUNER (top) ========= */
+
 
 .radio{
     background:#fff;
@@ -314,7 +314,7 @@ button:active{
 .tape.pink{ background:repeating-linear-gradient(45deg,#f7c9d6,#f7c9d6 6px,#f3b8c9 6px,#f3b8c9 12px);}
 .tape.mint{ background:repeating-linear-gradient(45deg,#c9e6e0,#c9e6e0 6px,#b7dcd4 6px,#b7dcd4 12px);}
 
-/* ========= PHOTO CAROUSEL (Bagian 01) ========= */
+
 
 .carousel{
     position:relative;
@@ -411,7 +411,7 @@ button:active{
     background:var(--pink);
 }
 
-/* ========= TIMELINE (Bagian 02) ========= */
+
 
 .timeline{
     position:relative;
@@ -476,7 +476,7 @@ button:active{
     color:#7a6d6b;
 }
 
-/* ========= CASSETTE (Bagian 03) ========= */
+
 
 .cassette-outer{
     background:linear-gradient(160deg,#fff3e2,#ffe6ce);
@@ -553,7 +553,7 @@ button:active{
     color:#8f8078;
 }
 
-/* ========= RADIO ON AIR (Bagian 04) ========= */
+
 
 .onair-box{
     display:flex;
@@ -695,7 +695,7 @@ button:active{
     overflow:hidden;
 }
 
-/* ========= CINEMA / TICKET CURTAIN (Bagian 05) ========= */
+
 
 .ticket-wrap{
     position:relative;
@@ -793,7 +793,6 @@ button:active{
     margin-bottom:18px;
 }
 
-/* ========= REASONS (Bagian 06) — 3D flip, satu terbuka ========= */
 
 .reasons{
     display:grid;
@@ -864,7 +863,6 @@ button:active{
     text-align:center;
 }
 
-/* ========= ENVELOPE 3D (final) ========= */
 
 .morse{
     text-align:center;
@@ -993,7 +991,6 @@ button:active{
     pointer-events:none;
 }
 
-/* kartu ucapan yang muncul menggantikan amplop */
 .letter-card{
     max-height:0;
     overflow:hidden;
@@ -1123,7 +1120,6 @@ button:active{
     100%{ transform:translate(-220px,140px); opacity:0; }
 }
 
-/* ========= FREQUENCY CARD ========= */
 
 .freq-card{
     background:linear-gradient(160deg,#fff3ea,#ffeadd);
@@ -1565,16 +1561,14 @@ const CONFIG = {
     songArtist: "Bernadya",
     songCover: "https://picsum.photos/200/200?song",
 
-    // embed Spotify asli (track atau playlist, isi dengan link embed open.spotify.com/embed/...)
+    
     spotifyEmbedUrl: "https://open.spotify.com/embed/playlist/2BNQlZiwlJfvDeT2ne0sNW?utm_source=oembed",
 
     voiceNote: "",
 
-    // movieSrc terima link embed apa saja (YouTube, Vimeo, Google Drive, dll)
-    // ATAU link file video langsung (.mp4/.webm/.mov) — otomatis kepake sebagai <video>
-    // kalau movieSrc kosong, fallback ke movieYoutubeId (field lama) biar tetap kompatibel
+  
     movieSrc: "",
-    movieYoutubeId: "dQw4w9WgXcQ",
+    movieYoutubeId: "",
 
     photos:[
         { title:"Senyum yang bikin aku kalah terus", image:"https://picsum.photos/400/500?1" },
@@ -1590,13 +1584,13 @@ const CONFIG = {
     ],
 
     reasons:[
-        { color:"pink", text:"Kamu lucu" },
+        { color:"pink", text:"Kamu Nyebelin" },
         { color:"yellow", text:"Bikin nyaman" },
         { color:"mint", text:"Senyummu manis" },
         { color:"blue", text:"Perhatian" },
         { color:"pink", text:"Pendengar baik" },
         { color:"yellow", text:"Selalu ada" },
-        { color:"mint", text:"Sabar" },
+        { color:"mint", text:"Pemarahan" },
         { color:"blue", text:"Bikin rindu" }
     ],
 
@@ -1702,7 +1696,7 @@ function initCassette(){
     });
 }
 
-/* ---------- RADIO / SPOTIFY EMBED ---------- */
+
 function renderSongCard(){
     $("#onairFreq").textContent = CONFIG.frequency;
 }
@@ -1745,7 +1739,6 @@ function initMusic(){
     $("#radioOffBtn").onclick = () => setRadioOn(false);
 }
 
-/* ---------- MOVIE TICKET / TIRAI BIOSKOP (terima src apa saja) ---------- */
 function buildMovieEmbed(){
     const container = $("#cinemaMedia");
     container.innerHTML = "";
@@ -1795,15 +1788,14 @@ function initMovie(){
             const readyEvent = built.isDirectVideo ? "loadeddata" : "load";
             built.el.addEventListener(readyEvent, () => { embedOk = true; }, { once:true });
         }
-
-        // video dimuat dulu di belakang tirai, baru tirai dibuka biar "muncul dari balik tirai"
+      
         setTimeout(() => {
             $("#ticketFace").classList.add("hide");
             $("#curtainL").classList.add("open");
             $("#curtainR").classList.add("open");
         }, 250);
 
-        // kalau video/iframe gagal dimuat (CSP/browser), tirai ditutup lagi & tampilkan fallback
+       
         setTimeout(() => {
             if(!embedOk){
                 $("#curtainL").classList.remove("open");
@@ -1839,7 +1831,6 @@ function renderReasons(){
     document.querySelectorAll(".reason-card").forEach(card => {
         card.onclick = () => {
             const alreadyOpen = card.classList.contains("open");
-            // tutup kartu lain yang lagi kebuka sebelum buka yang baru ditap
             document.querySelectorAll(".reason-card.open").forEach(c => {
                 if(c !== card) c.classList.remove("open");
             });
@@ -1869,7 +1860,6 @@ function renderLetter(){
     $("#closingText").textContent = "";
 }
 
-/* ========= PARTICLES (tap/drag di mana saja) ========= */
 
 function spawnParticles(x, y, icons){
     icons = icons || ["❤️","🌸","✨"];
@@ -1935,7 +1925,7 @@ function initLetter(){
             const envRect = envelope.getBoundingClientRect();
             spawnParticles(envRect.left + envRect.width/2, envRect.top + envRect.height/2);
 
-            // amplop kebuka lalu collapse penuh, BARU kartu ucapan mulai tumbuh (biar nggak numpuk)
+         
             setTimeout(() => {
                 envelope.classList.add("closing");
             }, 900);
